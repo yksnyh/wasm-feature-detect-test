@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome to nginx!</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css">
+  <style>
+    table {
+      overflow: unset !important;
+    }
+  </style>
+</head>
+
+<body>
+  <h1> WebAssembly feature detection </h1>
+  <p>
+    <a href="https://github.com/GoogleChromeLabs/wasm-feature-detect">wasm-feature-detect</a>
+    を使って、WASMの機能がサポートされているかを確認してみる
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Supported</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-label="Feature">Fixed-Width SIMD</td>
+        <td data-label="Supported" id="simd-supported"></td>
+      </tr>
+      <tr>
+        <td data-label="Feature">Threads</td>
+        <td data-label="Supported" id="threads-supported"></td>
+      </tr>
+      <tr>
+        <td data-label="Feature">Exception handling</td>
+        <td data-label="Supported" id="exceptions-supported"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script type="module">
+    import { simd, threads, exceptions } from "https://unpkg.com/wasm-feature-detect?module";
+
+    simd().then(supported => {
+      document.getElementById('simd-supported').innerText = supported ? '✔️' : '❌';
+    });
+    threads().then(supported => {
+      document.getElementById('threads-supported').innerText = supported ? '✔️' : '❌';
+    });
+    exceptions().then(supported => {
+      document.getElementById('exceptions-supported').innerText = supported ? '✔️' : '❌';
+    });
+  </script>
+</body>
+
+</html>
